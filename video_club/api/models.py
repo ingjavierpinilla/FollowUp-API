@@ -21,7 +21,7 @@ class Cliente(models.Model):
 class Sucursal(models.Model):
     nombre = models.CharField(max_length=60)
     ciudad = models.CharField(max_length=60)
-    direccion = models.CharField(max_length=60)
+    direccion = models.CharField(max_length=60, null=True, blank=True)
 
 class Prestamo(models.Model):
     codigo_cliente = models.IntegerField(null = False)
