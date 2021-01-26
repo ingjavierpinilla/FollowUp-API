@@ -11,6 +11,7 @@ class Cliente(models.Model):
     apellidos = models.CharField(max_length=60)
     telefono = models.IntegerField(null=True)
 class Sucursal(models.Model):
+    nombre = models.CharField(max_length=60)
     ciudad = models.CharField(max_length=60)
     direccion = models.CharField(max_length=60)
 class Prestamo(models.Model):
@@ -18,4 +19,4 @@ class Prestamo(models.Model):
     codigo_cinta = models.IntegerField(null = False)
     codigo_sucursal = models.IntegerField(null = False)
     fecha_prestamo = models.DateTimeField(auto_now_add=True)
-    fecha_entrega = models.DateTimeField(null=True)
+    fecha_entrega = models.DateTimeField(null=True, blank=True)
