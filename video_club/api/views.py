@@ -3,8 +3,9 @@ from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .models import Cliente, Sucursal, Prestamo, Cinta
-from .serializer import ClienteSerializer, SucursalSerializer, CintaSerializer
-import datetime
+from .serializer import ClienteSerializer, SucursalSerializer, CintaSerializer, PrestamoSerializer, VentasDiariasSerializer
+from django.db.models import Count, Sum
+from django.db.models.functions import TruncMonth
 
 class ClienteList(APIView):
     def get(self, request, format=None):
@@ -18,31 +19,36 @@ class DisponiblesList(APIView):
         serializer = CintaSerializer(cinta, many=True)
         return Response(serializer.data)
 
+class VentaDiario(APIView):
+    """
+    parametros de query:
+        (?P<fecha>.+)/$: fecha en formato ISO 8601 sin incluir la hora, minutos y segundos
+        i.e. 2010-12-16
+    """
+    def get(self, request, format=None):
+        fecha = request.GET.get('fecha')
+        prestamo = Prestamo.objects.select_related('codigo_cinta').filter(fecha_prestamo__date=fecha).values('codigo_sucursal').annotate(cintas_alquiladas=Count('codigo_sucursal'), valor_venta=Sum('codigo_cinta__valor')).order_by('cintas_alquiladas')
+        if not prestamo:
+            return Response({'Fecha no valida.'}, status = status.HTTP_404_NOT_FOUND)
+
+        return Response(prestamo)
+
 class SucursalList(APIView):
+    """
+    parametros de query:
+        (?P<id>.+)/$
+    """
 
     def get(self, request, format=None):
         ids = request.GET.get('id')
-        year = request.GET.get('year')
         if ids is not None:
             sucursal = Sucursal.objects.filter(id=ids)
             if not sucursal:
                 return Response({'Sucursal no encontrada': 'ID invalido.'}, status = status.HTTP_404_NOT_FOUND)
-            
-            if year_validator(year):
-                aux = Prestamo.objects.filter(codigo_sucursal=ids, fecha_prestamo__year=int(year)).select_related()
-                print('***********************')
-                print(aux)
-            else:
-                return Response({'Year no valido.'}, status = status.HTTP_404_NOT_FOUND)
-
+            sucursal = Prestamo.objects.select_related('codigo_cinta').filter(codigo_sucursal=ids).annotate(mes=TruncMonth('fecha_prestamo')).values('mes').annotate(valor_venta=Sum('codigo_cinta__valor')).order_by('mes')
+            return Response(sucursal)
         else:
             sucursal = Sucursal.objects.all()
-
         serializer = SucursalSerializer(sucursal, many=True)
         return Response(serializer.data)
 
-def year_validator(value):
-    value = int(value)
-    if value < 1900 or value > datetime.datetime.now().year:
-        return False
-    return True

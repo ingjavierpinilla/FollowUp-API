@@ -21,3 +21,8 @@ class PrestamoSerializer(serializers.ModelSerializer):
         model = Prestamo
         fields =('id', 'codigo_cliente', 'codigo_cinta', 'codigo_sucursal',
         'fecha_prestamo', 'fecha_entrega')
+
+class VentasDiariasSerializer(serializers.Serializer):
+    codigo_sucursal = serializers.Field(source='codigo_sucursal')
+    cintas_alquiladas = serializers.Field(source='total')
+    #clientId = serializers.Field()

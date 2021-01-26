@@ -34,4 +34,4 @@ class Prestamo(models.Model):
 
 
     def __str__(self):
-        return f'Prestamo cinta: {self.codigo_cinta}, S {self.codigo_sucursal}, F {self.fecha_prestamo}'
+        return f'Prestamo {self.codigo_cinta}'
