@@ -2,14 +2,20 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .models import Cliente, Sucursal, Prestamo
-from .serializer import ClienteSerializer, SucursalSerializer
+from .models import Cliente, Sucursal, Prestamo, Cinta
+from .serializer import ClienteSerializer, SucursalSerializer, CintaSerializer
 import datetime
 
 class ClienteList(APIView):
     def get(self, request, format=None):
         cliente  = Cliente.objects.all()
         serializer = ClienteSerializer(cliente, many=True)
+        return Response(serializer.data)
+
+class DisponiblesList(APIView):
+    def get(self, request, format=None):
+        cinta  = Cinta.objects.filter(disponible=True)
+        serializer = CintaSerializer(cinta, many=True)
         return Response(serializer.data)
 
 class SucursalList(APIView):
