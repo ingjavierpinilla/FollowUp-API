@@ -6,18 +6,18 @@ class CintaSerializer(serializers.ModelSerializer):
         model = Cinta
         fields = ('id', 'titulo', 'valor', 'disponible')
 
-class ClienteSerielizer (serializers.ModelSerializer):
+class ClienteSerializer (serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = ('id', 'nombres', 'apellidos', 'telefono')
 
 
-class SucursalSerielizer(serializers.ModelSerializer):
+class SucursalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sucursal
         fields = ('id','nombre','ciudad','direccion')
 
-class PrestamoSerielizer(serializers.ModelSerializer):
+class PrestamoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prestamo
         fields =('id', 'codigo_cliente', 'codigo_cinta', 'codigo_sucursal',
