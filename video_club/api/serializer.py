@@ -11,7 +11,6 @@ class ClienteSerializer (serializers.ModelSerializer):
         model = Cliente
         fields = ('id', 'nombres', 'apellidos', 'direccion')
 
-
 class SucursalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sucursal
