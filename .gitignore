@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 video_club/video_club/keys.py
+notas.txt

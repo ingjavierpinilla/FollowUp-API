@@ -9,7 +9,7 @@ class CintaSerializer(serializers.ModelSerializer):
 class ClienteSerializer (serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ('id', 'nombres', 'apellidos', 'telefono')
+        fields = ('id', 'nombres', 'apellidos', 'direccion')
 
 
 class SucursalSerializer(serializers.ModelSerializer):
