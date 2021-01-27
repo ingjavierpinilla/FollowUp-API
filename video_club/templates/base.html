@@ -31,8 +31,8 @@
       <div class="container">
         <a
           class="navbar-brand navbar-custom"
-          href="https://github.com/ingjavierpinilla/Technical-Test-Torre"
-          >Tech test Javier
+          href="https://github.com/ingjavierpinilla/FollowUp"
+          >Tech test Javier [GIT]
         </a>
         <button
           class="navbar-toggler"
@@ -45,13 +45,6 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">New search </a>
-            </li>
-          </ul>
-        </div>
       </div>
     </nav>
 
@@ -60,28 +53,355 @@
         <div class="col-7 text-center">
           <br />
           <br />
-          <h2>Hello there,</h2>
-          <br />
-          <h4>thank you for taking the time to review my technical test.</h4>
+          <h2>Hola,</h2>
+          <h4>gracias por tomar el tiempo de revisar mi test tecnico.</h4>
           <br />
           <h6>
-            This is what I have done in just under 72 hours. Recreate the search
-            for "Torre" as I would like, of course there is much to improve. The
-            most important changes are:
+            Este es el landing page del API, a continuacion encontraras la
+            documentacion de la misma:
           </h6>
-          <li>
-            The landing page of the search section allows a quick search without
-            applying many filters.
-          </li>
-          <li>
-            NLP is used to process what the user is looking for (currently works
-            just in English), so that what is currently happening does not
-            happen, that a component must be reloaded to make a suggestion with
-            every key the user presses.
-          </li>
-          <li>
-            The whole form is not reloaded every time you select a new filter.
-          </li>
+          <div class="accordion text-left" id="accordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="false"
+                  aria-controls="collapseOne"
+                >
+                  Consolidado de venta mensual por sucursal
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingOne"
+                data-bs-parent="#accordion"
+              >
+                <div class="accordion-body text-left">
+                  <p>
+                    Recibe el ID de la sucursal de la cual se desea la
+                    informacion, retorna un json con la suma de las ventas por
+                    mes con la fecha en formato ISO 8601 sin incluir la hora,
+                    minutos y segundos
+                  </p>
+                  <ul>
+                    <li>
+                      <p><strong>URL</strong></p>
+                      <p>/api/sucursal/?id</p>
+                    </li>
+                    <li>
+                      <p><strong>Method:</strong></p>
+                      <p><code>GET</code></p>
+                    </li>
+                    <li>
+                      <p><strong>URL Params</strong></p>
+                      <p><strong>Required:</strong></p>
+                      <p><code>id=[integer]</code></p>
+                    </li>
+                    <li>
+                      <p><strong>Success Response:</strong></p>
+                      <ul>
+                        <li><strong>Code:</strong> 200 <br /></li>
+                        <li>
+                          <strong>Content:</strong>
+                          <code
+                            >{ &quot;mes&quot;:
+                            &quot;2021-01-01T00:00:00Z&quot;,
+                            &quot;valor_venta&quot;: 40.0 } { &quot;mes&quot;:
+                            &quot;2021-02-01T00:00:00Z&quot;,
+                            &quot;valor_venta&quot;: 60.0 }</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p><strong>Error Response:</strong></p>
+                      <ul>
+                        <li><strong>Code:</strong> 401 UNAUTHORIZED <br /></li>
+                      </ul>
+                      <p>OR</p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 404 NOT FOUND<br />
+                          <strong>Content:</strong>
+                          <code
+                            >{&#39;Sucursal no encontrada&#39;: &#39;ID
+                            invalido.&#39;}</code
+                          >
+                        </li>
+                      </ul>
+                      <p>OR</p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 204 NO CONTENT<br />
+                          <strong>Content:</strong>
+                          <code
+                            >{&#39;Sin informacion para la fecha
+                            requerida.&#39;}</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button
+                  class="accordion-button collapsed text-left"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                >
+                  Detalle de venta diario, con sucursal, cantidad de cintas
+                  alquiladas y valor discriminado de venta
+                </button>
+              </h2>
+              <div
+                id="collapseTwo"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingTwo"
+                data-bs-parent="#accordion"
+              >
+                <div class="accordion-body">
+                  <p>
+                    Recibe una fecha en formato ISO 8601 sin incluir la hora,
+                    minutos y segundos i.e. 2010-12-16
+                  </p>
+                  <p>
+                    Retorna un JSON con codigo_sucursal, cintas_alquiladas y
+                    valor_venta. Ordenado por el codigo de sucursal
+                  </p>
+                  <ul>
+                    <li>
+                      <p><strong>URL</strong></p>
+                      <p>/api/venta-diaria/?fecha</p>
+                    </li>
+                    <li>
+                      <p><strong>Method:</strong></p>
+                      <p><code>GET</code></p>
+                    </li>
+                    <li>
+                      <p><strong>URL Params</strong></p>
+                      <p><strong>Required:</strong></p>
+                      <p>
+                        <code
+                          >fecha=[string] fecha en formato ISO 8601 i.e.
+                          2010-12-16</code
+                        >
+                      </p>
+                    </li>
+                    <li>
+                      <p><strong>Success Response:</strong></p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 200 <br />
+                          <strong>Content:</strong>
+                          <code
+                            >[ { &quot;codigo_sucursal&quot;: 1,
+                            &quot;cintas_alquiladas&quot;: 2,
+                            &quot;valor_venta&quot;: 40.0 }, {
+                            &quot;codigo_sucursal&quot;: 2,
+                            &quot;cintas_alquiladas&quot;: 1,
+                            &quot;valor_venta&quot;: 20.0 } ]</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p><strong>Error Response:</strong></p>
+                      <ul>
+                        <li><strong>Code:</strong> 401 UNAUTHORIZED <br /></li>
+                      </ul>
+                      <p>OR</p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 404 NOT FOUND<br />
+                          <strong>Content:</strong>
+                          <code>{&#39;Fecha no valida&#39;}</code>
+                        </li>
+                      </ul>
+                      <p>OR</p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 204 NO CONTENT<br />
+                          <strong>Content:</strong>
+                          <code
+                            >{&#39;Sin informacion para la fecha
+                            requerida.&#39;}</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree"
+                  aria-expanded="false"
+                  aria-controls="collapseThree"
+                >
+                  Películas disponibles para alquiler
+                </button>
+              </h2>
+              <div
+                id="collapseThree"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingThree"
+                data-bs-parent="#accordion"
+              >
+                <div class="accordion-body">
+                  <ul>
+                    <li>
+                      <p><strong>URL</strong></p>
+                      <p>/api/disponible</p>
+                    </li>
+                    <li>
+                      <p><strong>Method:</strong></p>
+                      <p><code>GET</code></p>
+                    </li>
+                    <li>
+                      <p><strong>URL Params</strong></p>
+                      <p><strong>Required:</strong></p>
+                      <p><code>None</code></p>
+                    </li>
+                    <li>
+                      <p><strong>Success Response:</strong></p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 200 <br />
+                          <strong>Content:</strong>
+                          <code
+                            >[ { &quot;id&quot;: 1, &quot;titulo&quot;:
+                            &quot;titulo1&quot;, &quot;valor&quot;: 10.0,
+                            &quot;disponible&quot;: true }, { &quot;id&quot;: 2,
+                            &quot;titulo&quot;: &quot;titulo2&quot;,
+                            &quot;valor&quot;: 20.0, &quot;disponible&quot;:
+                            true }, { &quot;id&quot;: 3, &quot;titulo&quot;:
+                            &quot;titulo3&quot;, &quot;valor&quot;: 30.0,
+                            &quot;disponible&quot;: true } ]</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p><strong>Error Response:</strong></p>
+                      <ul>
+                        <li><strong>Code:</strong> 401 UNAUTHORIZED <br /></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFour">
+                <button
+                  class="accordion-button collapsed text-left"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour"
+                  aria-expanded="false"
+                  aria-controls="collapseFour"
+                >
+                  Sucursal que más películas ha alquilado entre un rango de
+                  fechas
+                </button>
+              </h2>
+              <div
+                id="collapseFour"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingFour"
+                data-bs-parent="#accordion"
+              >
+                <div class="accordion-body">
+                  <p>
+                    Recibe dos fechas (de, hasta) en formato ISO 8601 sin
+                    incluir la hora, minutos y segundos i.e. 2010-12-16
+                  </p>
+                  <p>
+                    Retorna un JSON con codigo_sucursal, codigo_sucursal__nombre
+                    y valor_venta. Ordenado por el codigo de sucursal
+                  </p>
+                  <ul>
+                    <li>
+                      <p><strong>URL</strong></p>
+                      <p>/api/venta-diaria/?de&amp;hasta</p>
+                    </li>
+                    <li>
+                      <p><strong>Method:</strong></p>
+                      <p><code>GET</code></p>
+                    </li>
+                    <li>
+                      <p><strong>URL Params</strong></p>
+                      <p><strong>Required:</strong></p>
+                      <p>
+                        <code
+                          >de=[string] fecha en formato ISO 8601 i.e.
+                          2010-12-16</code
+                        >
+                        <code
+                          >hasta=[string] fecha en formato ISO 8601 i.e.
+                          2010-12-16</code
+                        >
+                      </p>
+                    </li>
+                    <li>
+                      <p><strong>Success Response:</strong></p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 200 <br />
+                          <strong>Content:</strong>
+                          <code
+                            >{ &quot;codigo_sucursal&quot;: 1,
+                            &quot;codigo_sucursal__nombre&quot;: &quot;s1&quot;,
+                            &quot;valor_venta&quot;: 40.0 }</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p><strong>Error Response:</strong></p>
+                      <ul>
+                        <li><strong>Code:</strong> 401 UNAUTHORIZED <br /></li>
+                      </ul>
+                      <p>OR</p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 404 NOT FOUND<br />
+                          <strong>Content:</strong>
+                          <code>{&#39;Fecha no valida&#39;}</code>
+                        </li>
+                      </ul>
+                      <p>OR</p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 204 NO CONTENT<br />
+                          <strong>Content:</strong>
+                          <code
+                            >{&#39;Sin informacion para la fecha
+                            requerida.&#39;}</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
