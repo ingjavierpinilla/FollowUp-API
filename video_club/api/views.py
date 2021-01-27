@@ -2,16 +2,10 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .models import Cliente, Sucursal, Prestamo, Cinta
-from .serializer import ClienteSerializer, SucursalSerializer, CintaSerializer, PrestamoSerializer, VentasDiariasSerializer
+from .models import Sucursal, Prestamo, Cinta
+from .serializer import  SucursalSerializer, CintaSerializer
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncMonth
-
-class ClienteList(APIView):
-    def get(self, request, format=None):
-        cliente  = Cliente.objects.all()
-        serializer = ClienteSerializer(cliente, many=True)
-        return Response(serializer.data)
 
 class DisponiblesList(APIView):
     def get(self, request, format=None):
@@ -29,7 +23,23 @@ class VentaDiario(APIView):
         fecha = request.GET.get('fecha')
         prestamo = Prestamo.objects.select_related('codigo_cinta').filter(fecha_prestamo__date=fecha).values('codigo_sucursal').annotate(cintas_alquiladas=Count('codigo_sucursal'), valor_venta=Sum('codigo_cinta__valor')).order_by('cintas_alquiladas')
         if not prestamo:
-            return Response({'Fecha no valida.'}, status = status.HTTP_404_NOT_FOUND)
+            return Response({'Sin informacion para la fecha requerida.'}, status = status.HTTP_404_NOT_FOUND)
+
+        return Response(prestamo)
+
+class TopVentas(APIView):
+    """
+    parametros de query:
+        (?P<de>.+)/$: fecha en formato ISO 8601 sin incluir la hora, minutos y segundos
+        i.e. 2010-12-16
+        (?P<hasta>.+)/$: igual al anterior
+    """
+    def get(self, request, format=None):
+        de = request.GET.get('de')
+        hasta = request.GET.get('hasta')
+        prestamo = Prestamo.objects.select_related('codigo_cinta','codigo_sucursal').filter(fecha_prestamo__range=[de, hasta]).values('codigo_sucursal','codigo_sucursal__nombre').annotate(valor_venta=Sum('codigo_cinta__valor')).order_by('-valor_venta')[0]
+        if not prestamo:
+            return Response({'Sin informacion para la fecha requerida.'}, status = status.HTTP_404_NOT_FOUND)
 
         return Response(prestamo)
 
