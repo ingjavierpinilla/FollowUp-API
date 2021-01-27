@@ -44,7 +44,6 @@ class TopVentas(APIView):
     def get(self, request, format=None):
         de = request.GET.get('de')
         hasta = request.GET.get('hasta')
-        print('*************************************1')
         try:
             prestamo = Prestamo.objects.select_related('codigo_cinta','codigo_sucursal').filter(fecha_prestamo__range=[de, hasta]).values('codigo_sucursal','codigo_sucursal__nombre').annotate(valor_venta=Sum('codigo_cinta__valor')).order_by('-valor_venta')
         except:
@@ -62,14 +61,13 @@ class SucursalList(APIView):
 
     def get(self, request, format=None):
         id_ = request.GET.get('id')
-        if id_ is not None:
+        try:
             sucursal = Sucursal.objects.filter(id=id_)
             if not sucursal:
-                return Response({'Sucursal no encontrada': 'ID invalido.'}, status = status.HTTP_404_NOT_FOUND)
+                return Response({'Sucursal no encontrada': 'ID invalido.'}, status = status.HTTP_204_NO_CONTENT)
+            
             sucursal = Prestamo.objects.select_related('codigo_cinta').filter(codigo_sucursal=id_).annotate(mes=TruncMonth('fecha_prestamo')).values('mes').annotate(valor_venta=Sum('codigo_cinta__valor')).order_by('mes')
             return Response(sucursal)
-        else:
-            sucursal = Sucursal.objects.all()
-        serializer = SucursalSerializer(sucursal, many=True)
-        return Response(serializer.data)
+        except:
+            return Response({'ID invalido.'}, status = status.HTTP_404_NOT_FOUND)
 
