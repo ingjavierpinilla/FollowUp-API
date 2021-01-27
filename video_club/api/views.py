@@ -7,6 +7,9 @@ from .serializer import  SucursalSerializer, CintaSerializer
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncMonth
 
+def Landing(request):
+    return render(request, "base.html")
+
 class DisponiblesList(APIView):
     def get(self, request, format=None):
         cinta  = Cinta.objects.filter(disponible=True)
