@@ -44,14 +44,15 @@ class TopVentas(APIView):
     def get(self, request, format=None):
         de = request.GET.get('de')
         hasta = request.GET.get('hasta')
+        print('*************************************1')
         try:
-            prestamo = Prestamo.objects.select_related('codigo_cinta','codigo_sucursal').filter(fecha_prestamo__range=[de, hasta]).values('codigo_sucursal','codigo_sucursal__nombre').annotate(valor_venta=Sum('codigo_cinta__valor')).order_by('-valor_venta')[0]
+            prestamo = Prestamo.objects.select_related('codigo_cinta','codigo_sucursal').filter(fecha_prestamo__range=[de, hasta]).values('codigo_sucursal','codigo_sucursal__nombre').annotate(valor_venta=Sum('codigo_cinta__valor')).order_by('-valor_venta')
         except:
             return Response({'Fecha no valida.'}, status = status.HTTP_404_NOT_FOUND)
         if not prestamo:
             return Response({'Sin informacion para la fecha requerida.'}, status = status.HTTP_204_NO_CONTENT)
 
-        return Response(prestamo, status=status.HTTP_200_OK)
+        return Response(prestamo[0], status=status.HTTP_200_OK)
 
 class SucursalList(APIView):
     """
