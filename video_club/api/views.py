@@ -50,12 +50,12 @@ class SucursalList(APIView):
     """
 
     def get(self, request, format=None):
-        ids = request.GET.get('id')
-        if ids is not None:
-            sucursal = Sucursal.objects.filter(id=ids)
+        id_ = request.GET.get('id')
+        if id_ is not None:
+            sucursal = Sucursal.objects.filter(id=id_)
             if not sucursal:
                 return Response({'Sucursal no encontrada': 'ID invalido.'}, status = status.HTTP_404_NOT_FOUND)
-            sucursal = Prestamo.objects.select_related('codigo_cinta').filter(codigo_sucursal=ids).annotate(mes=TruncMonth('fecha_prestamo')).values('mes').annotate(valor_venta=Sum('codigo_cinta__valor')).order_by('mes')
+            sucursal = Prestamo.objects.select_related('codigo_cinta').filter(codigo_sucursal=id_).annotate(mes=TruncMonth('fecha_prestamo')).values('mes').annotate(valor_venta=Sum('codigo_cinta__valor')).order_by('mes')
             return Response(sucursal)
         else:
             sucursal = Sucursal.objects.all()
