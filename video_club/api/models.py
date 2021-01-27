@@ -29,7 +29,7 @@ class Prestamo(models.Model):
     codigo_cliente = models.ForeignKey(Cliente,on_delete=models.CASCADE)
     codigo_cinta = models.ForeignKey(Cinta,on_delete=models.CASCADE)
     codigo_sucursal = models.ForeignKey(Sucursal,on_delete=models.CASCADE)
-    fecha_prestamo = models.DateTimeField(auto_now_add=True)
+    fecha_prestamo = models.DateTimeField()
     fecha_entrega = models.DateTimeField(null=True, blank=True)
 
 
