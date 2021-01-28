@@ -12,11 +12,15 @@ def Landing(request):
     return render(request, "base.html")
 
 class CintaList(APIView):
-
+    """
+    Por defecto retorna la lista de todas las cintas de la tienda
+    Si recibe:
+    - disponible = true, entonces retorna la lista de las cintas disponibles
+    """
     def get(self, request, format=None):
         disponible = request.GET.get('disponible')
         try:
-            if disponible == 'True':
+            if disponible == 'True' or disponible == 'true':
                 cinta  = Cinta.objects.filter(disponible=True)
             else:
                 cinta  = Cinta.objects.all()
@@ -60,12 +64,11 @@ class SucursalDetail(APIView):
 class Venta(APIView):
     """
     parametros de query:
-        Todas las fechas en formato ISO 8601 sin incluir la hora, minutos y segundos
-        i.e. 2010-12-16
-
-        (?P<fecha>.+)/$
-        o 
-        (?P<de>.+)/$/(?P<hasta>.+)/$
+        Todas las fechas en formato ISO 8601 sin incluir la hora, minutos y segundos i.e. 2010-12-16
+        Si recibe:
+            - (?P<fecha>.+)/$: Se retornan las ventas de el dia indicado ordenado por codigo de sucursal
+            - (?P<de>.+)/$/(?P<hasta>.+)/$ Se retorna la sucursal que mas vendio en ese lapso de tiempo
+            - Por defecto se retorna el informe de ventas del dia en que se hace la consulta
     """
     def get(self, request, format=None):
         fecha = request.GET.get('fecha')
