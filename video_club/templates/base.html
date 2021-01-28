@@ -90,7 +90,7 @@
                   <ul>
                     <li>
                       <p><strong>URL</strong></p>
-                      <p>/api/sucursal/?id</p>
+                      <p>/api/sucursal/&ltid&gt</p>
                     </li>
                     <li>
                       <p><strong>Method:</strong></p>
@@ -108,11 +108,12 @@
                         <li>
                           <strong>Content:</strong>
                           <code
-                            >{ &quot;mes&quot;:
-                            &quot;2021-01-01T00:00:00Z&quot;,
-                            &quot;valor_venta&quot;: 40.0 } { &quot;mes&quot;:
-                            &quot;2021-02-01T00:00:00Z&quot;,
-                            &quot;valor_venta&quot;: 60.0 }</code
+                            ><br />[<br />{&quot;mes&quot;:
+                            &quot;2021-01-01T00:00:00Z&quot;,<br />
+                            &quot;valor_venta&quot;: 40.0 } <br />{
+                            &quot;mes&quot;:
+                            &quot;2021-02-01T00:00:00Z&quot;,<br />
+                            &quot;valor_venta&quot;: 60.0 }<br />]</code
                           >
                         </li>
                       </ul>
@@ -125,12 +126,9 @@
                       <p>OR</p>
                       <ul>
                         <li>
-                          <strong>Code:</strong> 404 NOT FOUND<br />
+                          <strong>Code:</strong> 400 BAD REQUEST<br />
                           <strong>Content:</strong>
-                          <code
-                            >{&#39;Sucursal no encontrada&#39;: &#39;ID
-                            invalido.&#39;}</code
-                          >
+                          <code>{&#39;ID invalido.&#39;}</code>
                         </li>
                       </ul>
                       <p>OR</p>
@@ -138,10 +136,7 @@
                         <li>
                           <strong>Code:</strong> 204 NO CONTENT<br />
                           <strong>Content:</strong>
-                          <code
-                            >{&#39;Sin informacion para la fecha
-                            requerida.&#39;}</code
-                          >
+                          <code>{&#39;Cinta &ltid&gt no encontrada.&#39;}</code>
                         </li>
                       </ul>
                     </li>
@@ -181,7 +176,7 @@
                   <ul>
                     <li>
                       <p><strong>URL</strong></p>
-                      <p>/api/venta-diaria/?fecha</p>
+                      <p>/api/venta/?fecha</p>
                     </li>
                     <li>
                       <p><strong>Method:</strong></p>
@@ -204,12 +199,12 @@
                           <strong>Code:</strong> 200 <br />
                           <strong>Content:</strong>
                           <code
-                            >[ { &quot;codigo_sucursal&quot;: 1,
-                            &quot;cintas_alquiladas&quot;: 2,
-                            &quot;valor_venta&quot;: 40.0 }, {
-                            &quot;codigo_sucursal&quot;: 2,
-                            &quot;cintas_alquiladas&quot;: 1,
-                            &quot;valor_venta&quot;: 20.0 } ]</code
+                            ><br />[ <br />{ &quot;codigo_sucursal&quot;: 1,<br />
+                            &quot;cintas_alquiladas&quot;: 2,<br />
+                            &quot;valor_venta&quot;: 40.0 }, <br />{
+                            &quot;codigo_sucursal&quot;: 2,<br />
+                            &quot;cintas_alquiladas&quot;: 1,<br />
+                            &quot;valor_venta&quot;: 20.0 } <br />]</code
                           >
                         </li>
                       </ul>
@@ -222,7 +217,7 @@
                       <p>OR</p>
                       <ul>
                         <li>
-                          <strong>Code:</strong> 404 NOT FOUND<br />
+                          <strong>Code:</strong> 400 NOT FOUND<br />
                           <strong>Content:</strong>
                           <code>{&#39;Fecha no valida&#39;}</code>
                         </li>
@@ -266,7 +261,7 @@
                   <ul>
                     <li>
                       <p><strong>URL</strong></p>
-                      <p>/api/disponible</p>
+                      <p>/api/cinta/?disponible=true</p>
                     </li>
                     <li>
                       <p><strong>Method:</strong></p>
@@ -284,14 +279,18 @@
                           <strong>Code:</strong> 200 <br />
                           <strong>Content:</strong>
                           <code
-                            >[ { &quot;id&quot;: 1, &quot;titulo&quot;:
-                            &quot;titulo1&quot;, &quot;valor&quot;: 10.0,
-                            &quot;disponible&quot;: true }, { &quot;id&quot;: 2,
+                            >[ <br />{ &quot;id&quot;: 1,
+                            <br />&quot;titulo&quot;: &quot;titulo1&quot;,
+                            <br />&quot;valor&quot;: 10.0,<br />
+                            &quot;disponible&quot;: true }, <br />{
+                            &quot;id&quot;: 2,<br />
                             &quot;titulo&quot;: &quot;titulo2&quot;,
-                            &quot;valor&quot;: 20.0, &quot;disponible&quot;:
-                            true }, { &quot;id&quot;: 3, &quot;titulo&quot;:
-                            &quot;titulo3&quot;, &quot;valor&quot;: 30.0,
-                            &quot;disponible&quot;: true } ]</code
+                            &quot;valor&quot;: 20.0,<br />
+                            &quot;disponible&quot;: true }, <br />{
+                            &quot;id&quot;: 3,<br />
+                            &quot;titulo&quot;: &quot;titulo3&quot;,<br />
+                            &quot;valor&quot;: 30.0,<br />
+                            &quot;disponible&quot;: true } <br />]</code
                           >
                         </li>
                       </ul>
@@ -300,6 +299,7 @@
                       <p><strong>Error Response:</strong></p>
                       <ul>
                         <li><strong>Code:</strong> 401 UNAUTHORIZED <br /></li>
+                        <li><strong>Code:</strong> 400 BAD REQUEST <br /></li>
                       </ul>
                     </li>
                   </ul>
@@ -338,7 +338,7 @@
                   <ul>
                     <li>
                       <p><strong>URL</strong></p>
-                      <p>/api/venta-diaria/?de&amp;hasta</p>
+                      <p>/api/venta/?de&amp;hasta</p>
                     </li>
                     <li>
                       <p><strong>Method:</strong></p>
@@ -365,9 +365,10 @@
                           <strong>Code:</strong> 200 <br />
                           <strong>Content:</strong>
                           <code
-                            >{ &quot;codigo_sucursal&quot;: 1,
-                            &quot;codigo_sucursal__nombre&quot;: &quot;s1&quot;,
-                            &quot;valor_venta&quot;: 40.0 }</code
+                            ><br />[<br />{ &quot;codigo_sucursal&quot;: 1,<br />
+                            &quot;codigo_sucursal__nombre&quot;:
+                            &quot;s1&quot;,<br />
+                            &quot;valor_venta&quot;: 40.0 }<br />]</code
                           >
                         </li>
                       </ul>
@@ -380,9 +381,20 @@
                       <p>OR</p>
                       <ul>
                         <li>
-                          <strong>Code:</strong> 404 NOT FOUND<br />
+                          <strong>Code:</strong> 400 BAD REQUEST<br />
                           <strong>Content:</strong>
                           <code>{&#39;Fecha no valida&#39;}</code>
+                        </li>
+                      </ul>
+                      <p>OR</p>
+                      <ul>
+                        <li>
+                          <strong>Code:</strong> 400 BAD REQUEST<br />
+                          <strong>Content:</strong>
+                          <code
+                            >{&#39;Hasta&#39; ocurre antes que
+                            &#39;de&#39;}</code
+                          >
                         </li>
                       </ul>
                       <p>OR</p>
