@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'video_club.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'video_club_db',
+        'NAME': 'ingjmpinillag$video_club_db',
         'USER': 'ingjmpinillag',
         'PASSWORD': str(os.getenv('DB_PASSWORD')),
         'HOST': '127.0.0.1',
