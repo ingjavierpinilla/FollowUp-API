@@ -18,33 +18,34 @@ The API Rest provides the following information:
 
       - GET
 
-     - URL Params
+    - URL Params
 
       - Required: id=[integer]
 
-      - Success Response:
+    - Success Response:
 
-        - Code: 200
+      - Code: 200
         Content:
         [
         {"month": "2021-01-01T00:00:00Z",
-        "sales": 40.0 }
+        "sale_value": 40.0 }
         { "month": "2021-02-01T00:00:00Z",
-        "sales": 60.0 }
+        "sale_value": 60.0 }
         ]
-      - Error Response:
+    - Error Response:
 
-        - Code: 401 UNAUTHORIZED
-        
-
-        - Code: 400 BAD REQUEST
+      - Code: 401 UNAUTHORIZED
+      - Code: 400 BAD REQUEST
         Content: {'Invalid ID.'}
-        
-
-        - Code: 204 NO CONTENT
+      - Code: 204 NO CONTENT
         Content: {'Tape <id> not found.'}
 
   - Daily sales detail, with office id, number of tapes rented and discriminated sales value.
+    - Receives a date in ISO 8601 format without including the hour, minutes and seconds i.e. 2010-12-16. Returns a JSON with office_code, rented_tapes and sale_value. Sorted by office code.
+    - URL: /api/venta/?fecha
+    - Method:
+      - GET
+    - 
   - Films available for rental.
   - Determine which office has rented the most films among a range of dates. 
 
