@@ -78,7 +78,29 @@ The API Rest provides the following information:
       - Code: 400 BAD REQUEST
 
   - Determine which office has rented the most films among a range of dates. 
+    - Receives two dates (from, to) in ISO 8601 format without including the hour, minutes and seconds i.e. 2010-12-16. Return a JSON with branch_code, branch_code__name and sale_value. Sorted by branch code
+    - URL: /api/venta/?from&to
+    - Method:
+      - GET
+    - URL Params
+      - Required: from=[string] date in ISO 8601 format i.e. 2010-12-16, to=[string] date in ISO 8601 format i.e. 2010-12-16
+    - Success Response:
 
+      - Code: 200
+      Content: [{ "office_id": 1, "office_id__name": "s1", "sales_value": 40.0 } ]
+    - Error Response:
+
+      Code: 401 UNAUTHORIZED
+
+
+      Code: 400 BAD REQUEST
+      Content: {'Date not valid'}
+
+      Code: 400 BAD REQUEST
+      Content: {'from' occurs before 'to'.}
+
+      Code: 204 NO CONTENT
+      Content: {'No information for the requested date.'}
 
 ### Technologies
 
