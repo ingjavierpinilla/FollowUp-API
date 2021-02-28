@@ -5,6 +5,8 @@ This information is managed in the following way:
 
 When a loan is made, a card is filled in, in which the member who takes the film, the date and the number of the tape are noted. The date and the number of the tape being borrowed, which is unique (there are several copies of each film on different tapes), the office where the film is rented, the value per tape. This card is deposited in the borrowed films file cabinet. When the member returns the tape, the card is transferred to the of returned films.
 
+# Entity–relationship model
+![ds_structure](https://github.com/ingjavierpinilla/video-club-API-REST/blob/main/Entity–relationship_model.png)
 # Characteristics
 The API Rest provides the following information:
   - Consolidated monthly sales by store.
