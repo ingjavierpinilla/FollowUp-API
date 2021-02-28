@@ -10,6 +10,40 @@ When a loan is made, a card is filled in, in which the member who takes the film
 # Characteristics
 The API Rest provides the following information:
   - Consolidated monthly sales by store.
+    - Receives the ID of the branch from which the information is desired, returns a json with the sum of the sales per month with the date in ISO 8601 format without including the hour, minutes and seconds.
+
+    - URL: /api/sucursal/<id>
+
+    - Method:
+
+      - GET
+
+     - URL Params
+
+      - Required: id=[integer]
+
+      - Success Response:
+
+        Code: 200
+        Content:
+        [
+        {"mes": "2021-01-01T00:00:00Z",
+        "valor_venta": 40.0 }
+        { "mes": "2021-02-01T00:00:00Z",
+        "valor_venta": 60.0 }
+        ]
+      - Error Response:
+
+        Code: 401 UNAUTHORIZED
+        OR
+
+        Code: 400 BAD REQUEST
+        Content: {'ID invalido.'}
+        OR
+
+        Code: 204 NO CONTENT
+        Content: {'Cinta <id> no encontrada.'}
+
   - Daily sales detail, with office id, number of tapes rented and discriminated sales value.
   - Films available for rental.
   - Determine which office has rented the most films among a range of dates. 
