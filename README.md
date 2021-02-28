@@ -52,7 +52,7 @@ The API Rest provides the following information:
 
       - Code: 200
       Content:
-      [{ "codigo_sucursal": 1, "cintas_alquiladas": 2, "valor_venta": 40.0 }, { "codigo_sucursal": 2, "cintas_alquiladas": 1, "valor_venta": 20.0 }]
+      [{ "office_id": 1, "rented_tapes": 2, "sales_value": 40.0 }, { "office_id": 2, "rented_tapes": 1, "sales_value": 20.0 }]
     - Error Response:
 
       - Code: 401 UNAUTHORIZED
@@ -63,6 +63,20 @@ The API Rest provides the following information:
       - Code: 204 NO CONTENT
       Content: {'No information for the requested date.'}
   - Films available for rental.
+    - URL: /api/cinta/?disponible=true
+    - Method:
+      - GET
+    - URL Params
+      - None
+    - Success Response:
+
+      - Code: 200
+      Content: [{ "id": 1, "title": "title1", "price": 10.0, "available": true }, { "id": 2, "title": "title2", "price": 20.0, "available": true }, { "id": 3, "title": "title3", "price": 30.0, "available": true }]
+    - Error Response:
+
+      - Code: 401 UNAUTHORIZED
+      - Code: 400 BAD REQUEST
+
   - Determine which office has rented the most films among a range of dates. 
 
 
