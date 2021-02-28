@@ -24,25 +24,25 @@ The API Rest provides the following information:
 
       - Success Response:
 
-        Code: 200
+        - Code: 200
         Content:
         [
-        {"mes": "2021-01-01T00:00:00Z",
-        "valor_venta": 40.0 }
-        { "mes": "2021-02-01T00:00:00Z",
-        "valor_venta": 60.0 }
+        {"month": "2021-01-01T00:00:00Z",
+        "sales": 40.0 }
+        { "month": "2021-02-01T00:00:00Z",
+        "sales": 60.0 }
         ]
       - Error Response:
 
-        Code: 401 UNAUTHORIZED
-        OR
+        - Code: 401 UNAUTHORIZED
+        
 
-        Code: 400 BAD REQUEST
-        Content: {'ID invalido.'}
-        OR
+        - Code: 400 BAD REQUEST
+        Content: {'Invalid ID.'}
+        
 
-        Code: 204 NO CONTENT
-        Content: {'Cinta <id> no encontrada.'}
+        - Code: 204 NO CONTENT
+        Content: {'Tape <id> not found.'}
 
   - Daily sales detail, with office id, number of tapes rented and discriminated sales value.
   - Films available for rental.
