@@ -45,7 +45,23 @@ The API Rest provides the following information:
     - URL: /api/venta/?fecha
     - Method:
       - GET
-    - 
+    - URL Params
+      - Required: date=[string] date in ISO 8601 format i.e. 2010-12-16
+
+    - Success Response:
+
+      - Code: 200
+      Content:
+      [{ "codigo_sucursal": 1, "cintas_alquiladas": 2, "valor_venta": 40.0 }, { "codigo_sucursal": 2, "cintas_alquiladas": 1, "valor_venta": 20.0 }]
+    - Error Response:
+
+      - Code: 401 UNAUTHORIZED
+
+      - Code: 400 NOT FOUND
+      Content: {'Date not valid'}
+
+      - Code: 204 NO CONTENT
+      Content: {'No information for the requested date.'}
   - Films available for rental.
   - Determine which office has rented the most films among a range of dates. 
 
